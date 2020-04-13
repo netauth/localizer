@@ -35,7 +35,7 @@ type Base struct {
 	// This is the list of shells that are permitted on a given
 	// host.  This list should normally be populated with the list
 	// from /etc/shells.
-	shells []string
+	shellWhitelist map[string]struct{}
 
 	passwd *shadow.PasswdMap
 	group  *shadow.GroupMap

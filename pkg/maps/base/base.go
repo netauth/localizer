@@ -14,6 +14,8 @@ import (
 func New() *Base {
 	b := new(Base)
 	b.Logger = hclog.L().Named("base-identity")
+
+	b.shellWhitelist = make(map[string]struct{})
 	return b
 }
 
@@ -64,10 +66,8 @@ func (b *Base) loadShells() error {
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		b.shells = append(b.shells, scanner.Text())
+		b.shellWhitelist[scanner.Text()] = struct{}{}
 	}
-
-	b.Info("The system will accept the following shells", "shells", b.shells)
 	return nil
 }
 
