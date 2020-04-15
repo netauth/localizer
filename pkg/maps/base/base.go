@@ -8,6 +8,8 @@ import (
 	"github.com/hashicorp/go-hclog"
 
 	"github.com/the-maldridge/shadow"
+
+	pb "github.com/netauth/protocol"
 )
 
 // New returns a new initialized Base maps structure.
@@ -16,6 +18,13 @@ func New() *Base {
 	b.Logger = hclog.L().Named("base-identity")
 
 	b.shellWhitelist = make(map[string]struct{})
+	b.entities = make(map[string]*pb.Entity)
+	b.groups = make(map[string]*pb.Group)
+	b.members = make(map[string][]string)
+	b.pgroups = make(map[string]uint32)
+
+	b.passwd = &shadow.PasswdMap{}
+	b.group = &shadow.GroupMap{}
 	return b
 }
 

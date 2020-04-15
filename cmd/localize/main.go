@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"os"
 
 	"github.com/hashicorp/go-hclog"
@@ -41,13 +42,34 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Set up the base identity map structures.
 	baseIdentity := base.New()
 	baseIdentity.SetBaseDir(*baseDir)
 	baseIdentity.SetLogger(log.Named("base-identity"))
 	baseIdentity.SetMinUID(int32(*minUID))
 	baseIdentity.SetMinGID(int32(*minGID))
 	baseIdentity.SetFallbackShell(*defShell)
-	baseIdentity.Load()
 
-	log.Info("baseIdentity", "value", baseIdentity)
+	// Load the identity maps that are on disk.
+	if err := baseIdentity.Load(); err != nil {
+		log.Error("Error loading maps from disk", "error", err)
+		os.Exit(1)
+	}
+
+	// Connect to and load the updated information from NetAuth.
+	ctx := context.Background()
+
+	if err := baseIdentity.ConnectNetAuth(); err != nil {
+		log.Error("Error connecting to NetAuth", "error", err)
+		os.Exit(1)
+	}
+	if err := baseIdentity.LoadNetAuthData(ctx); err != nil {
+		log.Error("Error loading data from NetAuth", "error", err)
+		os.Exit(1)
+	}
+
+	baseIdentity.MergePasswd()
+	baseIdentity.MergeGroup()
+	log.Info("baseIdentity", "passwd", baseIdentity.FetchPasswd().String())
+	log.Info("baseIdentity", "group", baseIdentity.FetchGroup().String())
 }

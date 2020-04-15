@@ -3,13 +3,18 @@ package base
 import (
 	"github.com/hashicorp/go-hclog"
 
+	"github.com/netauth/netauth/pkg/netauth"
 	"github.com/the-maldridge/shadow"
+
+	pb "github.com/netauth/protocol"
 )
 
 // Base provides a virtual component that handles the passwd and group
 // maps.
 type Base struct {
 	hclog.Logger
+
+	c *netauth.Client
 
 	// The baseDir is the location that files will be read from
 	// and written to.  On most systems this should be specified
@@ -39,4 +44,11 @@ type Base struct {
 
 	passwd *shadow.PasswdMap
 	group  *shadow.GroupMap
+
+	// These maps hold the components that make up the NetAuth
+	// source data.
+	entities map[string]*pb.Entity
+	groups   map[string]*pb.Group
+	members  map[string][]string
+	pgroups  map[string]uint32
 }
