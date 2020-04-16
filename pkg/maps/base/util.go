@@ -25,3 +25,15 @@ func (b *Base) FetchPasswd() shadow.PasswdMap {
 func (b *Base) FetchGroup() shadow.GroupMap {
 	return *b.group
 }
+
+// PasswdBytes returns a byte representation of the new passwd file as
+// it should appear for writing to disk.
+func (b *Base) PasswdBytes() []byte {
+	return []byte(b.passwd.String())
+}
+
+// GroupBytes returns a byte representation of the new group file as
+// it should appear for writing to disk.
+func (b *Base) GroupBytes() []byte {
+	return []byte(b.group.String())
+}

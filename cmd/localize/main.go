@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"os"
+	"path/filepath"
 
 	"github.com/hashicorp/go-hclog"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
+	"github.com/google/renameio"
 
 	"github.com/netauth/localizer/pkg/maps/base"
 )
@@ -68,8 +70,19 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Merge remote information with base maps
 	baseIdentity.MergePasswd()
 	baseIdentity.MergeGroup()
 	log.Info("baseIdentity", "passwd", baseIdentity.FetchPasswd().String())
 	log.Info("baseIdentity", "group", baseIdentity.FetchGroup().String())
+
+	if err := renameio.WriteFile(filepath.Join(*baseDir, "passwd"), baseIdentity.PasswdBytes(), 0644); err != nil {
+		log.Error("Error writing passwd", "error", err)
+		os.Exit(2)
+	}
+
+	if err := renameio.WriteFile(filepath.Join(*baseDir, "group"), baseIdentity.GroupBytes(), 0644); err != nil {
+		log.Error("Error writing group", "error", err)
+		os.Exit(2)
+	}
 }

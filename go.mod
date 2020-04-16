@@ -5,6 +5,7 @@ go 1.14
 require (
 	github.com/Flaque/filet v0.0.0-20190209224823-fc4d33cfcf93
 	github.com/golang/protobuf v1.3.2
+	github.com/google/renameio v0.1.0
 	github.com/hashicorp/go-hclog v0.12.2
 	github.com/netauth/netauth v0.3.2
 	github.com/netauth/protocol v0.0.0-20191124005711-167b58b61c72

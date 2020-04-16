@@ -26,3 +26,13 @@ func TestFetchGroup(t *testing.T) {
 	b := New()
 	assert.Equal(t, b.FetchGroup(), *b.group)
 }
+
+func TestPasswdBytes(t *testing.T) {
+	b := New()
+	assert.Equal(t, b.PasswdBytes(), []byte(b.passwd.String()))
+}
+
+func TestGroupBytes(t *testing.T) {
+	b := New()
+	assert.Equal(t, b.GroupBytes(), []byte(b.group.String()))
+}
