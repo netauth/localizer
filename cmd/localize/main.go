@@ -73,8 +73,6 @@ func main() {
 	// Merge remote information with base maps
 	baseIdentity.MergePasswd()
 	baseIdentity.MergeGroup()
-	log.Info("baseIdentity", "passwd", baseIdentity.FetchPasswd().String())
-	log.Info("baseIdentity", "group", baseIdentity.FetchGroup().String())
 
 	if err := renameio.WriteFile(filepath.Join(*baseDir, "passwd"), baseIdentity.PasswdBytes(), 0644); err != nil {
 		log.Error("Error writing passwd", "error", err)
