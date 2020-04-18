@@ -1,1 +1,4 @@
 config.toml
+vendor/
+NOTICE
+dist/
