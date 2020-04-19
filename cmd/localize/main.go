@@ -5,10 +5,10 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/google/renameio"
 	"github.com/hashicorp/go-hclog"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"github.com/google/renameio"
 
 	"github.com/netauth/localizer/pkg/maps/base"
 )
