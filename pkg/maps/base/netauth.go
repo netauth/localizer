@@ -5,10 +5,6 @@ import (
 
 	"github.com/netauth/netauth/pkg/netauth"
 	"github.com/the-maldridge/shadow"
-
-	// We need a token cache available, even if no tokens will be
-	// issued.
-	_ "github.com/netauth/netauth/pkg/netauth/memory"
 )
 
 // ConnectNetAuth establishes the connection from the localizer to the
