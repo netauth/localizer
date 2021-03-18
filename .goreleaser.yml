@@ -1,8 +1,9 @@
+before:
+  hooks:
+    - go mod vendor
+    - scripts/prepare.sh
 builds:
-  - id: localize
-    main: ./cmd/localize/main.go
-    binary: localize
-    goos:
+  - goos:
       - linux
 archives:
 - replacements:
