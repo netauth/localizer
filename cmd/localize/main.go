@@ -19,8 +19,9 @@ var (
 
 	defShell = pflag.String("shell", "/bin/nologin", "Default shell to use if none is provided in the directory")
 
-	baseDir = pflag.String("base", "/etc", "Base directory for files")
-	cfgfile = pflag.String("config", "", "Config file to use")
+	baseDir  = pflag.String("base", "/etc", "Base directory for files")
+	baseHome = pflag.String("home", "/home", "Base directory for homes")
+	cfgfile  = pflag.String("config", "", "Config file to use")
 
 	log hclog.Logger
 )
@@ -47,6 +48,7 @@ func main() {
 	// Set up the base identity map structures.
 	baseIdentity := base.New()
 	baseIdentity.SetBaseDir(*baseDir)
+	baseIdentity.SetBaseHome(*baseHome)
 	baseIdentity.SetLogger(log.Named("base-identity"))
 	baseIdentity.SetMinUID(int32(*minUID))
 	baseIdentity.SetMinGID(int32(*minGID))

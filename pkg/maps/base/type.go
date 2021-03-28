@@ -21,6 +21,11 @@ type Base struct {
 	// as /etc.
 	baseDir string
 
+	// The baseHome is the location that home directories are
+	// rooted at.  This will be prepended to all entity IDs to
+	// construct the path to the home directory.
+	baseHome string
+
 	// The minUID and minGID specify the numeric lower bound for
 	// remote values to be loaded into the system.  These values
 	// should be set with a decent amount of headroom above the

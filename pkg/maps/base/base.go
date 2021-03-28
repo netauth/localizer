@@ -34,6 +34,12 @@ func (b *Base) SetBaseDir(s string) {
 	b.baseDir = s
 }
 
+// SetBaseHome specifies the base directory that will be prepended to
+// all entity IDs to construct the path written to the passwd map.
+func (b *Base) SetBaseHome(s string) {
+	b.baseHome = s
+}
+
 // SetMinUID specifies the minimum UID that should be accepted from
 // NetAuth.  UIDs below this value are asserted to be local to the
 // system and are not modified.
