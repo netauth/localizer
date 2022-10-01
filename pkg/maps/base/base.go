@@ -90,7 +90,7 @@ func (b *Base) loadShells() error {
 // manipulation.  No filtering is done on load, all filtering is
 // handled during patching.
 func (b *Base) loadPasswd() error {
-	pf, err := os.Open(filepath.Join(b.baseDir, "passwd"))
+	pf, err := os.Open(filepath.Join(b.baseDir, PasswdDB))
 	if err != nil {
 		return err
 	}
