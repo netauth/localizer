@@ -76,7 +76,7 @@ func main() {
 	baseIdentity.MergePasswd()
 	baseIdentity.MergeGroup()
 
-	if err := renameio.WriteFile(filepath.Join(*baseDir, "passwd"), baseIdentity.PasswdBytes(), 0644); err != nil {
+	if err := renameio.WriteFile(filepath.Join(*baseDir, base.PasswdDB), baseIdentity.PasswdBytes(), 0644); err != nil {
 		log.Error("Error writing passwd", "error", err)
 		os.Exit(2)
 	}
